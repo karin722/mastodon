@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
       -
-        name: Checkout karin722mastodon
+        name: Checkout karin722/mastodon
         uses: actions/checkout@v4
         with:
           repository: karin722/mastodon
