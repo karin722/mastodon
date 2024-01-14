@@ -1,9 +1,9 @@
 name: Push our docker image
 on:
   push:
-    branches: [ hota/master ]
+    branches: [ main ]
   pull_request:
-    branches: [ hota/master ]
+    branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,7 +25,7 @@ jobs:
         name: Checkout Git repository
         uses: actions/checkout@v2
         with:
-          repository: akane-blue/mastodon
+          repository: karin722/mastodon
           path: mastodon
       -
         name: Build and push to Docker Hub
