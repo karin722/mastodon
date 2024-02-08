@@ -16,10 +16,6 @@ body.app-body.flavour-glitch
   margin-inline-start: auto;
 }
 
-body.app-body.flavour-glitch > #mastodon .compose-form__buttons-wrapper {
-  position: relative;
-}
-
 body.app-body.flavour-glitch > #mastodon .character-counter__wrapper {
   position: absolute;
   inset-inline-end: 0;
@@ -45,7 +41,6 @@ body.app-body.flavour-glitch
   .status__content
   .status__content__text {
   mask: linear-gradient(to bottom, #000 50px, transparent) !important;
-  -webkit-mask: linear-gradient(to bottom, #000 50px, transparent) !important;
   max-height: 100px;
 }
 
@@ -53,7 +48,7 @@ body.app-body.flavour-glitch
   > #mastodon
   .collapsed
   .status__content
-  p:not(:last-child) {
+  p:not(:last-of-type) {
   margin-bottom: 0.4em;
 }
 
@@ -127,14 +122,8 @@ body.app-body.flavour-glitch > #mastodon .status__action-bar-spacer {
 }
 
 body.app-body.flavour-glitch > #mastodon .status__relative-time {
-  margin-inline: 5px !important;
+  margin-right: 5px;
   z-index: 2;
-  flex-grow: 0 !important;
-}
-
-body.app-body.flavour-glitch > #mastodon .reactions-bar {
-  width: unset;
-  margin-top: 8px;
 }
 
 body.app-body.flavour-glitch > #mastodon .reactions-bar button {
@@ -143,16 +132,7 @@ body.app-body.flavour-glitch > #mastodon .reactions-bar button {
 }
 @media (pointer: coarse) {
   body.app-body.flavour-glitch > #mastodon .reactions-bar button {
-    padding: 4px 8px !important;
-  }
-
-  body.app-body.flavour-glitch
-    > #mastodon
-    .reactions-bar
-    button
-    .reactions-bar__item__emoji {
-    height: 18px;
-    width: 18px;
+    padding: 8px 10px !important;
   }
 }
 
