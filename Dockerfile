@@ -12,7 +12,11 @@ ARG BUILDPLATFORM=${BUILDPLATFORM}
 
 # Ruby image to use for base image, change with [--build-arg RUBY_VERSION="3.3.x"]
 # renovate: datasource=docker depName=docker.io/ruby
+<<<<<<< HEAD
 ARG RUBY_VERSION="3.3.3"
+=======
+ARG RUBY_VERSION="3.3.4"
+>>>>>>> 182fee1c454dcd71ecf408ddc2c534bf6ee3a49a
 # # Node version to use in base image, change with [--build-arg NODE_MAJOR_VERSION="20"]
 # renovate: datasource=node-version depName=node
 ARG NODE_MAJOR_VERSION="20"
@@ -67,7 +71,13 @@ ENV \
 # Optimize jemalloc 5.x performance
   MALLOC_CONF="narenas:2,background_thread:true,thp:never,dirty_decay_ms:1000,muzzy_decay_ms:0" \
 # Enable libvips, should not be changed
+<<<<<<< HEAD
   MASTODON_USE_LIBVIPS=true
+=======
+  MASTODON_USE_LIBVIPS=true \
+# Sidekiq will touch tmp/sidekiq_process_has_started_and_will_begin_processing_jobs to indicate it is ready. This can be used for a readiness check in Kubernetes
+  MASTODON_SIDEKIQ_READY_FILENAME=sidekiq_process_has_started_and_will_begin_processing_jobs
+>>>>>>> 182fee1c454dcd71ecf408ddc2c534bf6ee3a49a
 
 # Set default shell used for running commands
 SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-c"]
