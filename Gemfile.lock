@@ -346,11 +346,7 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     io-console (0.7.2)
-<<<<<<< HEAD
-    irb (1.13.2)
-=======
     irb (1.14.0)
->>>>>>> 182fee1c454dcd71ecf408ddc2c534bf6ee3a49a
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jmespath (1.6.2)
