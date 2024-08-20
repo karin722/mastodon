@@ -15,6 +15,7 @@ import type { NotificationGap } from 'flavours/glitch/reducers/notification_grou
 import {
   selectSettingsNotificationsExcludedTypes,
   selectSettingsNotificationsQuickFilterActive,
+  selectSettingsNotificationsShows,
 } from 'flavours/glitch/selectors/settings';
 import type { AppDispatch } from 'flavours/glitch/store';
 import {
@@ -46,7 +47,7 @@ function dispatchAssociatedRecords(
       fetchedAccounts.push(notification.moderation_warning.target_account);
     }
 
-    if ('status' in notification) {
+    if ('status' in notification && notification.status) {
       fetchedStatuses.push(notification.status);
     }
   });
@@ -104,7 +105,31 @@ export const fetchNotificationsGap = createDataLoadingThunk(
 
 export const processNewNotificationForGroups = createAppAsyncThunk(
   'notificationGroups/processNew',
-  (notification: ApiNotificationJSON, { dispatch }) => {
+  (notification: ApiNotificationJSON, { dispatch, getState }) => {
+    const state = getState();
+    const activeFilter = selectSettingsNotificationsQuickFilterActive(state);
+    const notificationShows = selectSettingsNotificationsShows(state);
+
+    const showInColumn =
+      activeFilter === 'all'
+        ? notificationShows[notification.type]
+        : activeFilter === notification.type;
+
+    if (!showInColumn) return;
+
+    if (
+      (notification.type === 'mention' || notification.type === 'update') &&
+      notification.status?.filtered
+    ) {
+      const filters = notification.status.filtered.filter((result) =>
+        result.filter.context.includes('notifications'),
+      );
+
+      if (filters.some((result) => result.filter.filter_action === 'hide')) {
+        return;
+      }
+    }
+
     dispatchAssociatedRecords(dispatch, [notification]);
 
     return notification;
@@ -113,8 +138,18 @@ export const processNewNotificationForGroups = createAppAsyncThunk(
 
 export const loadPending = createAction('notificationGroups/loadPending');
 
-export const updateScrollPosition = createAction<{ top: boolean }>(
+export const updateScrollPosition = createAppAsyncThunk(
   'notificationGroups/updateScrollPosition',
+  ({ top }: { top: boolean }, { dispatch, getState }) => {
+    if (
+      top &&
+      getState().notificationGroups.mergedNotifications === 'needs-reload'
+    ) {
+      void dispatch(fetchNotifications());
+    }
+
+    return { top };
+  },
 );
 
 export const setNotificationsFilter = createAppAsyncThunk(
@@ -140,5 +175,34 @@ export const markNotificationsAsRead = createAction(
   'notificationGroups/markAsRead',
 );
 
-export const mountNotifications = createAction('notificationGroups/mount');
+export const mountNotifications = createAppAsyncThunk(
+  'notificationGroups/mount',
+  (_, { dispatch, getState }) => {
+    const state = getState();
+
+    if (
+      state.notificationGroups.mounted === 0 &&
+      state.notificationGroups.mergedNotifications === 'needs-reload'
+    ) {
+      void dispatch(fetchNotifications());
+    }
+  },
+);
+
 export const unmountNotifications = createAction('notificationGroups/unmount');
+
+export const refreshStaleNotificationGroups = createAppAsyncThunk<{
+  deferredRefresh: boolean;
+}>('notificationGroups/refreshStale', (_, { dispatch, getState }) => {
+  const state = getState();
+
+  if (
+    state.notificationGroups.scrolledToTop ||
+    !state.notificationGroups.mounted
+  ) {
+    void dispatch(fetchNotifications());
+    return { deferredRefresh: false };
+  }
+
+  return { deferredRefresh: true };
+});
