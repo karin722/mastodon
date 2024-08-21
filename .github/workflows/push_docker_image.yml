@@ -27,7 +27,7 @@ jobs:
           path: mastodon
       -
         name: Build mastodon image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: mastodon
           file: mastodon/Dockerfile
