@@ -2,6 +2,7 @@ import { debounce } from 'lodash';
 
 import type { MarkerJSON } from 'flavours/glitch/api_types/markers';
 import { getAccessToken } from 'flavours/glitch/initial_state';
+import { selectUseGroupedNotifications } from 'flavours/glitch/selectors/settings';
 import type { AppDispatch, RootState } from 'flavours/glitch/store';
 import { createAppAsyncThunk } from 'flavours/glitch/store/typed_functions';
 
@@ -64,7 +65,7 @@ export const synchronouslySubmitMarkers = createAppAsyncThunk(
       client.setRequestHeader('Content-Type', 'application/json');
       client.setRequestHeader('Authorization', `Bearer ${accessToken}`);
       client.send(JSON.stringify(params));
-    } catch (e) {
+    } catch {
       // Do not make the BeforeUnload handler error out
     }
   },
@@ -75,13 +76,8 @@ interface MarkerParam {
 }
 
 function getLastNotificationId(state: RootState): string | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-  const enableBeta = state.settings.getIn(
-    ['notifications', 'groupingBeta'],
-    false,
-  ) as boolean;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return enableBeta
+  return selectUseGroupedNotifications(state)
     ? state.notificationGroups.lastReadId
     : // @ts-expect-error state.notifications is not yet typed
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
