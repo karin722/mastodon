@@ -18,10 +18,10 @@ $gold-star: #ca8f04 !default; // Dark Goldenrod
 $red-bookmark: $warning-red;
 
 // Values from the classic Mastodon UI
-$classic-base-color: hsl(240deg, 16%, 19%);
-$classic-primary-color: hsl(240deg, 29%, 70%);
-$classic-secondary-color: hsl(255deg, 25%, 88%);
-$classic-highlight-color: $blurple-500;
+$classic-base-color: hsl(224, 16%, 19%);         // Midnight Express
+$classic-primary-color: hsl(215, 29%, 70%);      // Echo Blue
+$classic-secondary-color: hsl(208, 25%, 88%);    // Pattens Blue
+$classic-highlight-color: hsl(205, 70%, 51%);    // Brand Blue
 
 // Variables for defaults in UI
 $base-shadow-color: $black !default;
