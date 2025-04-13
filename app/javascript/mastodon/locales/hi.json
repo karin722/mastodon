@@ -28,7 +28,6 @@
   "account.endorse": "प्रोफ़ाइल पर दिखाए",
   "account.featured_tags.last_status_at": "{date} का अंतिम पोस्ट",
   "account.featured_tags.last_status_never": "कोई पोस्ट नहीं है",
-  "account.featured_tags.title": "{name} के चुनिंदा हैशटैग",
   "account.follow": "फॉलो करें",
   "account.follow_back": "फॉलो करें",
   "account.followers": "फॉलोवर",
@@ -479,12 +478,7 @@
   "tabs_bar.home": "होम",
   "tabs_bar.notifications": "सूचनाएँ",
   "trends.counter_by_accounts": "{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {# days}}",
-  "upload_form.audio_description": "Describe for people with hearing loss",
-  "upload_form.description": "Describe for the visually impaired",
   "upload_form.edit": "संशोधन करें",
-  "upload_form.video_description": "Describe for people with hearing loss or visual impairment",
-  "upload_modal.apply": "लागू करें",
-  "upload_modal.edit_media": "मीडिया में संशोधन करें",
   "upload_progress.label": "अपलोडिंग...",
   "video.download": "फाइल डाउनलोड करें"
 }

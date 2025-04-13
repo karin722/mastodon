@@ -26,7 +26,6 @@
   "account.endorse": "व्यक्तिगतविवरणे वैशिष्ट्यम्",
   "account.featured_tags.last_status_at": "{date} दिने गतस्थापनम्",
   "account.featured_tags.last_status_never": "न पत्रम्",
-  "account.featured_tags.title": "{name} इत्यस्य विशेषहैस्टैगः",
   "account.follow": "अनुस्रियताम्",
   "account.followers": "अनुसर्तारः",
   "account.followers.empty": "नाऽनुसर्तारो वर्तन्ते",
@@ -475,8 +474,5 @@
   "status.redraft": "मार्जय पुनश्च लिख्यताम्",
   "status.title.with_attachments": "{user} posted {attachmentCount, plural, one {an attachment} other {# attachments}}",
   "trends.counter_by_accounts": "{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {# days}}",
-  "upload_form.audio_description": "Describe for people with hearing loss",
-  "upload_form.description": "Describe for the visually impaired",
-  "upload_form.video_description": "Describe for people with hearing loss or visual impairment",
   "upload_progress.label": "Uploading…"
 }

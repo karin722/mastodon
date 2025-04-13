@@ -68,7 +68,7 @@ function loaded() {
 
     if (id) message = localeData[id];
 
-    if (!message) message = defaultMessage as string;
+    message ??= defaultMessage as string;
 
     const messageFormat = new IntlMessageFormat(message, locale);
     return messageFormat.format(values) as string;
@@ -119,7 +119,11 @@ function loaded() {
         formattedContent = dateFormat.format(datetime);
       }
 
-      content.title = formattedContent;
+      const timeGiven = content.dateTime.includes('T');
+      content.title = timeGiven
+        ? dateTimeFormat.format(datetime)
+        : dateFormat.format(datetime);
+
       content.textContent = formattedContent;
     });
 

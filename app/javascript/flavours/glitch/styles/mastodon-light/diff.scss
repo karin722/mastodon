@@ -1,5 +1,8 @@
 // Notes!
 // Sass color functions, "darken" and "lighten" are automatically replaced.
+@use 'sass:color';
+@use '../functions' as *;
+@use '../variables' as *;
 
 html {
   scrollbar-color: $ui-base-color rgba($ui-base-color, 0.25);
@@ -131,9 +134,7 @@ html {
 .actions-modal ul li:not(:empty) a:focus button,
 .actions-modal ul li:not(:empty) a:hover,
 .actions-modal ul li:not(:empty) a:hover button,
-.simple_form .block-button,
-.simple_form .button,
-.simple_form button {
+.simple_form button:not(.button, .link-button) {
   color: $white;
 }
 
@@ -146,6 +147,11 @@ html {
   border-top-color: lighten($ui-base-color, 4%);
 }
 
+.dialog-modal__content__preview {
+  background: #fff;
+  border-bottom: 1px solid var(--modal-border-color);
+}
+
 .reactions-bar__item:hover,
 .reactions-bar__item:focus,
 .reactions-bar__item:active {
@@ -153,8 +159,12 @@ html {
 }
 
 .reactions-bar__item.active {
-  background-color: mix($white, $ui-highlight-color, 80%);
-  border-color: mix(lighten($ui-base-color, 8%), $ui-highlight-color, 80%);
+  background-color: color.mix($white, $ui-highlight-color, 80%);
+  border-color: color.mix(
+    lighten($ui-base-color, 8%),
+    $ui-highlight-color,
+    80%
+  );
 }
 
 .media-modal__overlay .picture-in-picture__footer {
@@ -243,7 +253,7 @@ html {
 
 // Change the default colors used on some parts of the profile pages
 .activity-stream-tabs {
-  background: $account-background-color;
+  background: $white;
   border-bottom-color: lighten($ui-base-color, 8%);
 }
 
@@ -285,7 +295,7 @@ html {
   }
 
   .entry {
-    background: $account-background-color;
+    background: $white;
 
     .detailed-status.light,
     .more.light,
@@ -513,6 +523,15 @@ html {
 .language-dropdown__dropdown .emoji-mart-search input,
 .poll__option input[type='text'] {
   background: darken($ui-base-color, 10%);
+}
+
+.dropdown-button.warning {
+  border-color: #b3261e;
+  color: #b3261e;
+
+  &.active {
+    background-color: #f9dedc;
+  }
 }
 
 .search__popout__menu__item {

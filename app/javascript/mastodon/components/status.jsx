@@ -70,7 +70,7 @@ export const defaultMediaVisibility = (status) => {
     status = status.get('reblog');
   }
 
-  return (displayMedia !== 'hide_all' && !status.get('sensitive') || displayMedia === 'show_all');
+  return !status.get('matched_media_filters') && (displayMedia !== 'hide_all' && !status.get('sensitive') || displayMedia === 'show_all');
 };
 
 const messages = defineMessages({
@@ -333,7 +333,7 @@ class Status extends ImmutablePureComponent {
     const { onToggleHidden } = this.props;
     const status = this._properStatus();
 
-    if (status.get('matched_filters')) {
+    if (this.props.status.get('matched_filters')) {
       const expandedBecauseOfCW = !status.get('hidden') || status.get('spoiler_text').length === 0;
       const expandedBecauseOfFilter = this.state.showDespiteFilter;
 
@@ -470,6 +470,7 @@ class Status extends ImmutablePureComponent {
                 defaultWidth={this.props.cachedMediaWidth}
                 visible={this.state.showMedia}
                 onToggleVisibility={this.handleToggleMediaVisibility}
+                matchedFilters={status.get('matched_media_filters')}
               />
             )}
           </Bundle>
@@ -498,6 +499,7 @@ class Status extends ImmutablePureComponent {
                 blurhash={attachment.get('blurhash')}
                 visible={this.state.showMedia}
                 onToggleVisibility={this.handleToggleMediaVisibility}
+                matchedFilters={status.get('matched_media_filters')}
               />
             )}
           </Bundle>
@@ -522,12 +524,13 @@ class Status extends ImmutablePureComponent {
                 deployPictureInPicture={pictureInPicture.get('available') ? this.handleDeployPictureInPicture : undefined}
                 visible={this.state.showMedia}
                 onToggleVisibility={this.handleToggleMediaVisibility}
+                matchedFilters={status.get('matched_media_filters')}
               />
             )}
           </Bundle>
         );
       }
-    } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
+    } else if (status.get('card')) {
       media = (
         <Card
           onOpenMedia={this.handleOpenMedia}
